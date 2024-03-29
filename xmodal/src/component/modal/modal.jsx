@@ -68,7 +68,7 @@ const Modal = () => {
               onChange={handleInputChange}
             />
             <input
-              type="text"
+              type="email" // Changed type to email for proper email validation
               id="email"
               placeholder="Email"
               value={formData.email}
@@ -82,7 +82,7 @@ const Modal = () => {
               onChange={handleInputChange}
             />
             <input
-              type="text"
+              type="tel" // Changed type to tel for proper phone number validation
               id="phone"
               placeholder="Phone Number"
               value={formData.phone}
