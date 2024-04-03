@@ -1,6 +1,6 @@
 // Modal.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './modal.module.css';
 
 const Modal = () => {
@@ -10,6 +10,7 @@ const Modal = () => {
   const [dob, setDob] = useState('');
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
+  const modalRef = useRef();
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -22,6 +23,12 @@ const Modal = () => {
     setEmail('');
     setDob('');
     setPhone('');
+  };
+
+  const handleModalClick = (e) => {
+    if (!modalRef.current.contains(e.target)) {
+      handleCloseModal();
+    }
   };
 
   const handleSubmit = () => {
@@ -53,12 +60,24 @@ const Modal = () => {
     handleCloseModal();
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleModalClick);
+    } else {
+      document.removeEventListener('mousedown', handleModalClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleModalClick);
+    };
+  }, [isOpen]);
+
   return (
     <div>
       <button onClick={handleOpenModal}>Open Form</button>
       {isOpen && (
-        <div className={styles.modal} onClick={handleCloseModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modal}>
+          <div ref={modalRef} className={styles.modalContent}>
             <form>
               <label htmlFor="username">Username:</label>
               <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
