@@ -72,7 +72,7 @@ const Modal = () => {
               <label htmlFor="phone">Phone:</label>
               <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
 
-              <button type="button" className="submit-button" onClick={handleSubmit}>Submit</button>
+              <button type="button" className={styles.submitButton} onClick={handleSubmit}>Submit</button>
             </form>
           </div>
         </div>
