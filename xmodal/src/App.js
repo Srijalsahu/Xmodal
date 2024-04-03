@@ -1,10 +1,12 @@
 import "./App.css";
-import XModal from "./Xmodal";
+import XModal from "./component/modal/modal";
 
 function App() {
   return (
-    <XModal/>
-  );
+<>
+ <XModal/>
+</>
+    );
 }
 
 export default App;
