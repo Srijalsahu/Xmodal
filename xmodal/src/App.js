@@ -1,11 +1,9 @@
-import Modal from "./component/modal/modal";
-
+import "./App.css";
+import XModal from "./Xmodal";
 
 function App() {
   return (
-    <div>
-     <Modal/>
-    </div>
+    <XModal/>
   );
 }
 
