@@ -1,38 +1,30 @@
+// Modal.jsx
+
 import React, { useState } from 'react';
-import styles from './modal.module.css'; // Import CSS for styling
+import styles from './modal.module.css';
 
-const XModal = () => {
+const Modal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    dob: '',
-    phone: ''
-  });
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [dob, setDob] = useState('');
+  const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
 
-  const openModal = () => {
+  const handleOpenModal = () => {
     setIsOpen(true);
   };
 
-  const closeModal = () => {
+  const handleCloseModal = () => {
     setIsOpen(false);
-    setFormData({
-      username: '',
-      email: '',
-      dob: '',
-      phone: ''
-    });
+    setError('');
+    setUsername('');
+    setEmail('');
+    setDob('');
+    setPhone('');
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { username, email, dob, phone } = formData;
-
-    // Data validation
+  const handleSubmit = () => {
     if (!username || !email || !dob || !phone) {
       alert('Please fill out all fields.');
       return;
@@ -48,45 +40,45 @@ const XModal = () => {
       return;
     }
 
-    const today = new Date();
-    const dobDate = new Date(dob);
-    if (dobDate > today) {
-      alert('Invalid date of birth. Please enter a valid date.');
+    const currentDate = new Date();
+    const selectedDate = new Date(dob);
+
+    if (selectedDate > currentDate) {
+      alert('Invalid date of birth. Please select a past date.');
       return;
     }
 
-    // Reset form and close modal on successful submission
-    closeModal();
+    // Handle form submission
+    alert('Form submitted successfully!');
+    handleCloseModal();
   };
 
   return (
     <div>
-      <button onClick={openModal}>Open Form</button>
-
+      <button onClick={handleOpenModal}>Open Form</button>
       {isOpen && (
-        <div className={styles.modal} onClick={closeModal}>
+        <div className={styles.modal} onClick={handleCloseModal}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <h2>Modal Form</h2>
-            <form onSubmit={handleSubmit}>
+            <form>
               <label htmlFor="username">Username:</label>
-              <input type="text" id="username" value={formData.username} onChange={handleChange} />
-              <br />
+              <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+
               <label htmlFor="email">Email:</label>
-              <input type="text" id="email" value={formData.email} onChange={handleChange} />
-              <br />
+              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
               <label htmlFor="dob">Date of Birth:</label>
-              <input type="date" id="dob" value={formData.dob} onChange={handleChange} />
-              <br />
+              <input type="date" id="dob" value={dob} onChange={(e) => setDob(e.target.value)} />
+
               <label htmlFor="phone">Phone:</label>
-              <input type="text" id="phone" value={formData.phone} onChange={handleChange} />
-              <br />
-              <button type="submit" className={styles.submitButton}>Submit</button>
+              <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+
+              <button type="button" className="submit-button" onClick={handleSubmit}>Submit</button>
             </form>
           </div>
         </div>
       )}
     </div>
   );
-}
+};
 
-export default XModal;
+export default Modal;

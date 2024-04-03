@@ -1,3 +1,5 @@
+/* modal.module.css */
+
 .modal {
     position: fixed;
     top: 0;
@@ -16,15 +18,20 @@
     border-radius: 5px;
   }
   
+  .modalContent form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modalContent label {
+    margin-bottom: 5px;
+  }
+  
   .modalContent input {
     margin-bottom: 10px;
   }
   
-  .modalContent label {
-    display: block;
-  }
-  
-  .submitButton {
+  .submit-button {
     margin-top: 10px;
   }
   
