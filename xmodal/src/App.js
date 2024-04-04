@@ -1,12 +1,13 @@
-import "./App.css";
-import XModal from "./component/modal/modal";
+import React from 'react';
+import XModal from './Xmodal';
 
 function App() {
   return (
-<>
- <XModal/>
-</>
-    );
+    <div className="App">
+      <h1>XModal Form</h1>
+      <XModal/>
+    </div>
+  );
 }
 
 export default App;
