@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function XModal() {
   const [showModal, setShowModal] = useState(false);
@@ -6,6 +6,20 @@ function XModal() {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
   const [phone, setPhone] = useState('');
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (event.target.className === 'modal') {
+        setShowModal(false);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
