@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function XModal() {
   const [showModal, setShowModal] = useState(false);
@@ -6,20 +6,23 @@ function XModal() {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
   const [phone, setPhone] = useState('');
+  const modalRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (event.target.className === 'modal') {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
         setShowModal(false);
       }
     };
 
-    window.addEventListener('click', handleClickOutside);
+    if (showModal) {
+      window.addEventListener('click', handleClickOutside);
+    }
 
     return () => {
       window.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [showModal]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +61,7 @@ function XModal() {
 
       {showModal && (
         <div className="modal">
-          <div className="modal-content">
+          <div className="modal-content" ref={modalRef}>
             <span className="close" onClick={() => setShowModal(false)}>&times;</span>
             <form onSubmit={handleSubmit}>
               <label htmlFor="username">Username:</label>
